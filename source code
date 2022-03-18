@@ -1,0 +1,112 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class LoginGUI extends JFrame{
+    public static void main(String[] args)
+    {new LoginGUI();
+}
+    private JTextField textField1;
+    private JPanel panel1;
+    private JPasswordField passwordField1;
+    private JButton loginButton;
+    private JButton clearButton;
+    private final JFrame page;
+
+    public LoginGUI(){
+
+        page=new JFrame("Login Page");
+        page.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        page.setPreferredSize(new Dimension(400, 450));
+        page.setResizable(false);
+
+        page.add(panel1);
+        page.pack();
+        page.setLocationRelativeTo(null);
+        page.setVisible(true);
+
+        clearButton.addActionListener(e -> {
+            passwordField1.setText("");
+            textField1.setText("");
+        });
+        loginButton.addActionListener(e -> {
+            // If login pressed create new instance of grade gui
+            page.dispose();
+            new GradeGUI();
+        });
+    }
+}
+
+
+
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class GradeGUI extends JFrame {
+    private JPanel MainPanel;
+    private JTextField textTest1;
+    private JTextField textTest2;
+    private JTextField textTest3;
+    private JTextField textExam;
+    private JButton calculateGradeButton;
+    private JButton clearButton;
+    private JTextField textField1;
+    private JButton buttonExit;
+    private JTextField textField2;
+
+    public GradeGUI() {
+        setContentPane(MainPanel);
+        setTitle("Grade Calculator");
+        setSize(400, 450);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setVisible(true);
+
+        calculateGradeButton.addActionListener(e -> {
+            double test1;
+            double test2;
+            double test3;
+            double exam;
+            test1 = Double.parseDouble(textTest1.getText());
+            test2 = Double.parseDouble(textTest2.getText());
+            test3 = Double.parseDouble(textTest3.getText());
+            exam = Double.parseDouble(textExam.getText());
+
+            double average = (test1 + test2 + test3 + exam) / 4;
+            textField2.setText("Your mark out of 100 is " + average);
+            if (average < 0) {
+                textField2.setText("");
+            } else if (average >100)
+                textField2.setText("");
+
+            if (average >= 70 && average <= 100) {
+                textField1.setText("You are on track to receive a 1st Class");
+            } else if (average >= 60 && average < 70) {
+                textField1.setText("You are on track to receive a 2:1");
+            }  else if (average >= 50 && average < 60) {
+                textField1.setText("You are on track to receive a 2:2");
+            } else if (average >= 40 && average < 50) {
+                textField1.setText("You are on track to receive a 3rd Class.");
+            } else if (average >= 0 && average < 40) {
+                textField1.setText("Unfortunately, you have failed and must retake your module");
+            } else {
+                    textField1.setText("The number you have entered is not in the range.");
+            }
+        });
+
+        buttonExit.addActionListener(e -> System.exit(0));
+    }
+    {
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textTest1.setText("");
+                textTest2.setText("");
+                textTest3.setText("");
+                textExam.setText("");
+                textField1.setText("");
+                textField2.setText("");
+            }
+        });
+    }
+}
